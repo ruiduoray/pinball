@@ -159,8 +159,10 @@ def main():
     clock = pygame.time.Clock()
 
     baffle = Baffle()
-    #get_a_bunch_of_boxes_and_a_pinball()
-    get_a_bunch_of_cooler_boxes_and_pinballs()
+    get_a_bunch_of_boxes_and_a_pinball()
+
+    # Use this for a more interesting game
+    #get_a_bunch_of_cooler_boxes_and_pinballs()
 
     run = True
     while run:
