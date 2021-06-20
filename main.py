@@ -127,7 +127,7 @@ def get_a_bunch_of_boxes_and_a_pinball():
     for i in range(10):
         for j in range(5):
             Box(200 + i * (Box.SIZE + 1), 100 + j * (Box.SIZE + 1))
-    Pinball(300, 30, 0, 0)
+    Pinball(300, 30, 0, 1)
 
 
 def get_a_bunch_of_cooler_boxes_and_pinballs():
