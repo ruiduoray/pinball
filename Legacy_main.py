@@ -1,3 +1,4 @@
+# Legacy code. Not included in the game. You can safely ignore this file.
 import pygame
 
 pygame.init()
@@ -17,7 +18,7 @@ class Baffle:
     VEL = 5
 
     def __init__(self):
-        self.top_left = Vector2(230, 400)
+        self.top_left = Vector2(220, 400)
         self.dim = Vector2(60, 10)
         self.color = WHITE
 
@@ -25,14 +26,19 @@ class Baffle:
         pygame.draw.rect(surface, self.color, (self.top_left, self.dim))
 
     def move_left(self):
-        if self.top_left.x > 0:
+        if self.top_left.x > Baffle.VEL:
             self.top_left.x -= Baffle.VEL
+        else:
+            self.top_left.x = 0
 
     def move_right(self):
-        if self.top_left.x + self.dim.x < WIDTH:
+        if self.top_left.x + self.dim.x < WIDTH - Baffle.VEL:
             self.top_left.x += Baffle.VEL
+        else:
+            self.top_left.x = WIDTH - self.dim.x
 
     def collision(self, pinball):
+        # TODO: Add check for side segments
         if pinball.is_collide(self.top_left.x, self.top_left.x + self.dim.x, self.top_left.y, 0):
             hit_point = pinball.center.x + pinball.max_t * pinball.direction.x * pinball.VEL
             pinball.direction_fixed.x = (hit_point - self.top_left.x) / self.dim.x - 0.5
@@ -87,7 +93,9 @@ class Pinball:
             if 0 < t <= self.max_t and p1 <= self.center.x + t * self.direction.x * self.VEL <= p2:
                 self.max_t = t
                 self.direction_fixed = Vector2(self.direction.x, -self.direction.y)
-                self.center_fixed = self.center + t * self.direction * self.VEL + (1 - t) * self.direction_fixed * self.VEL
+                self.center_fixed = self.center + t * self.direction * self.VEL + (
+                            1 - t) * self.direction_fixed * self.VEL
+                # TODO: remember to calculate 2 collision in 1 frame
                 return True
         if axis == 1:
             if not self.direction.x or not self.VEL:
@@ -96,7 +104,8 @@ class Pinball:
             if 0 < t <= self.max_t and p1 <= self.center.y + t * self.direction.y * self.VEL <= p2:
                 self.max_t = t
                 self.direction_fixed = Vector2(-self.direction.x, self.direction.y)
-                self.center_fixed = self.center + t * self.direction * self.VEL + (1 - t) * self.direction_fixed * self.VEL
+                self.center_fixed = self.center + t * self.direction * self.VEL + (
+                            1 - t) * self.direction_fixed * self.VEL
                 return True
 
 
@@ -114,6 +123,7 @@ class Box:
         pygame.draw.rect(surface, self.color, (self.top_left, Vector2(self.SIZE, self.SIZE)))
 
     def collision(self, pinball):
+        # TODO: RUN ALL TESTS. if only runs the first true statement
         if pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y, 0) or \
                 pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y + self.SIZE, 0) or \
                 pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x, 1) or \
@@ -162,7 +172,7 @@ def main():
     get_a_bunch_of_boxes_and_a_pinball()
 
     # Use this for a more interesting game
-    #get_a_bunch_of_cooler_boxes_and_pinballs()
+    # get_a_bunch_of_cooler_boxes_and_pinballs()
 
     run = True
     while run:
