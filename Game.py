@@ -1,3 +1,4 @@
+import json
 from Box import *
 from Pinball import *
 from Baffle import *
@@ -10,7 +11,8 @@ class Game:
         self.box_tracker = []
 
         self.gui_init()
-        self.load_scene()
+
+        self.loaded = False
 
     # GUI Init is part of the Game init. Defining new variables in this method should be OK.
     def gui_init(self):
@@ -25,6 +27,9 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def run(self):
+        if not self.loaded:
+            print("Please load scene first")
+            return
         running = True
         while running:
             self.clock.tick(self.FPS)
@@ -56,23 +61,19 @@ class Game:
             pinball.draw(self.window)
         pygame.display.update()
 
-    def load_scene(self):
-        for i in range(10):
-            for j in range(5):
-                Box(200 + i * (Box.SIZE + 1), 100 + j * (Box.SIZE + 1), self.box_tracker)
-        Pinball(300, 30, 0, 1, self.pinball_tracker)
-        self.baffle = Baffle(220, 400, 60, 10)
-
-    def load_cooler_scene(self):
-        for i in range(45):
-            for j in range(5):
-                Box(i * (Box.SIZE + 1), j * (Box.SIZE + 1), self.box_tracker)
-        for i in range(8):
-            for j in range(20):
-                Box(i * (Box.SIZE + 1), 55 + j * (Box.SIZE + 1), self.box_tracker)
-                Box(407 + i * (Box.SIZE + 1), 55 + j * (Box.SIZE + 1), self.box_tracker)
-        for i in range(20):
-            for j in range(12):
-                Box(135 + i * (Box.SIZE + 1), 130 + j * (Box.SIZE + 1), self.box_tracker)
-        Pinball(100, 100, 0, 1, self.pinball_tracker)
-        Pinball(400, 100, 0, 1, self.pinball_tracker)
+    def load_scene(self, file_path):
+        with open(file_path) as f:
+            data = json.load(f)
+            baffle_info = data["baffle"]
+            self.baffle = Baffle(baffle_info["left"], baffle_info["top"],
+                                 baffle_info["width"], baffle_info["height"])
+            for box in data["boxes"]:
+                left = box["left"]
+                top = box["top"]
+                for i in range(box["count_along_x"]):
+                    for j in range(box["count_along_y"]):
+                        Box(left + i * (Box.SIZE + 1), top + j * (Box.SIZE + 1), self.box_tracker)
+            for pinball in data["pinballs"]:
+                Pinball(pinball["center_x"], pinball["center_y"], pinball["direction_x"],
+                        pinball["direction_y"], self.pinball_tracker)
+            self.loaded = True

@@ -1,0 +1,26 @@
+{
+  "baffle" : {
+    "left" : 220,
+    "top" : 400,
+    "width" : 60,
+    "height" : 10
+  },
+  "boxes" :
+    [
+      {
+        "left" : 200,
+        "top" : 100,
+        "count_along_x" : 10,
+        "count_along_y" : 5
+      }
+    ],
+  "pinballs" :
+    [
+      {
+        "center_x" : 300,
+        "center_y" : 30,
+        "direction_x" : 0,
+        "direction_y" : 1
+      }
+    ]
+}
