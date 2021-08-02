@@ -1,0 +1,68 @@
+{
+  "baffle" : {
+    "left" : 220,
+    "top" : 400,
+    "width" : 60,
+    "height" : 10
+  },
+  "boxes" :
+    [
+      {
+        "left" : 0,
+        "top" : 0,
+        "count_along_x" : 22,
+        "count_along_y" : 1
+      },
+      {
+        "left" : 270,
+        "top" : 0,
+        "count_along_x" : 21,
+        "count_along_y" : 1
+      },
+      {
+        "left" : 0,
+        "top" : 11,
+        "count_along_x" : 5,
+        "count_along_y" : 15
+      },
+      {
+        "left" : 446,
+        "top" : 11,
+        "count_along_x" : 5,
+        "count_along_y" : 15
+      },
+      {
+        "left" : 77,
+        "top" : 33,
+        "count_along_x" : 15,
+        "count_along_y" : 13
+      },
+      {
+        "left" : 270,
+        "top" : 33,
+        "count_along_x" : 14,
+        "count_along_y" : 13
+      },
+      {
+        "left" : 0,
+        "top" : 176,
+        "count_along_x" : 22,
+        "count_along_y" : 5
+      },
+      {
+        "left" : 270,
+        "top" : 176,
+        "count_along_x" : 21,
+        "count_along_y" : 5
+      }
+    ],
+  "pinballs" :
+    [
+      {
+        "center_x" : 255,
+        "center_y" : 20,
+        "direction_x" : 0,
+        "direction_y" : 1
+      }
+    ]
+}
