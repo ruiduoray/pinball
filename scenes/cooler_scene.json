@@ -38,7 +38,7 @@
         "center_x" : 100,
         "center_y" : 100,
         "direction_x" : 0,
-        "direction_y" : 0
+        "direction_y" : 1
       },
       {
         "center_x" : 400,
