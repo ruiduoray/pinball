@@ -70,10 +70,17 @@ class Game:
             for box in data["boxes"]:
                 left = box["left"]
                 top = box["top"]
-                box_lives = box["lives"]
+                box_lives = box["lives"] if "lives" in box else 1
                 for i in range(box["count_along_x"]):
                     for j in range(box["count_along_y"]):
                         Box(left + i * (Box.SIZE + 1), top + j * (Box.SIZE + 1), self.box_tracker, box_lives)
+            for wall in data["walls"]:
+                left = wall["left"]
+                top = wall["top"]
+                box_lives = wall["lives"] if "lives" in wall else 1
+                for i in range(wall["count_along_x"]):
+                    for j in range(wall["count_along_y"]):
+                        Wall(left + i * (Wall.SIZE + 1), top + j * (Wall.SIZE + 1), self.box_tracker, box_lives)
             for pinball in data["pinballs"]:
                 Pinball(pinball["center_x"], pinball["center_y"], pinball["direction_x"],
                         pinball["direction_y"], self.pinball_tracker)

@@ -21,6 +21,19 @@ class Box:
                 pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y + self.SIZE, 0) or \
                 pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x, 1) or \
                 pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x + self.SIZE, 1):
-            self.box_lives -= 1
-            if self.box_lives <= 0:
-                box_tracker.remove(self)
+            self.reduce_life(box_tracker)
+
+    def reduce_life(self, box_tracker):
+        self.box_lives -= 1
+        if self.box_lives <= 0:
+            box_tracker.remove(self)
+
+
+class Wall(Box):
+
+    def __init__(self, left, top, box_tracker, box_lives=1):
+        super().__init__(left, top, box_tracker, box_lives)
+        self.color = (128, 128, 128)
+
+    def reduce_life(self, box_tracker):
+        pass

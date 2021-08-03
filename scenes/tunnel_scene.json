@@ -62,7 +62,10 @@
         "top" : 176,
         "count_along_x" : 21,
         "count_along_y" : 5
-      },
+      }
+    ],
+  "walls" :
+    [
       {
         "lives" : 9999,
         "left" : 0,
