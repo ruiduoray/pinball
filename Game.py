@@ -70,9 +70,10 @@ class Game:
             for box in data["boxes"]:
                 left = box["left"]
                 top = box["top"]
+                box_lives = box["lives"]
                 for i in range(box["count_along_x"]):
                     for j in range(box["count_along_y"]):
-                        Box(left + i * (Box.SIZE + 1), top + j * (Box.SIZE + 1), self.box_tracker)
+                        Box(left + i * (Box.SIZE + 1), top + j * (Box.SIZE + 1), self.box_tracker, box_lives)
             for pinball in data["pinballs"]:
                 Pinball(pinball["center_x"], pinball["center_y"], pinball["direction_x"],
                         pinball["direction_y"], self.pinball_tracker)

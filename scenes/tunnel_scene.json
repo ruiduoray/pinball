@@ -1,6 +1,6 @@
 {
   "baffle" : {
-    "left" : 220,
+    "left" : 225,
     "top" : 400,
     "width" : 60,
     "height" : 10
@@ -8,52 +8,74 @@
   "boxes" :
     [
       {
+        "lives" : 1,
         "left" : 0,
         "top" : 0,
         "count_along_x" : 22,
         "count_along_y" : 1
       },
       {
+        "lives" : 1,
         "left" : 270,
         "top" : 0,
         "count_along_x" : 21,
         "count_along_y" : 1
       },
       {
+        "lives" : 1,
         "left" : 0,
         "top" : 11,
         "count_along_x" : 5,
         "count_along_y" : 15
       },
       {
+        "lives" : 1,
         "left" : 446,
         "top" : 11,
         "count_along_x" : 5,
         "count_along_y" : 15
       },
       {
+        "lives" : 1,
         "left" : 77,
         "top" : 33,
         "count_along_x" : 15,
         "count_along_y" : 13
       },
       {
+        "lives" : 1,
         "left" : 270,
         "top" : 33,
         "count_along_x" : 14,
         "count_along_y" : 13
       },
       {
+        "lives" : 1,
         "left" : 0,
         "top" : 176,
         "count_along_x" : 22,
         "count_along_y" : 5
       },
       {
+        "lives" : 1,
         "left" : 270,
         "top" : 176,
         "count_along_x" : 21,
         "count_along_y" : 5
+      },
+      {
+        "lives" : 9999,
+        "left" : 0,
+        "top" : 231,
+        "count_along_x" : 22,
+        "count_along_y" : 1
+      },
+      {
+        "lives" : 9999,
+        "left" : 270,
+        "top" : 231,
+        "count_along_x" : 21,
+        "count_along_y" : 1
       }
     ],
   "pinballs" :
