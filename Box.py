@@ -15,13 +15,12 @@ class Box:
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, (self.top_left, Vector2(self.SIZE, self.SIZE)))
 
-    def collision(self, pinball, box_tracker):
-        # TODO: RUN ALL TESTS. if only runs the first true statement
-        if pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y, 0) or \
-                pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y + self.SIZE, 0) or \
-                pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x, 1) or \
-                pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x + self.SIZE, 1):
-            self.reduce_life(box_tracker)
+    def is_collide(self, pinball):
+        collide = [pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y, 0),
+                   pinball.is_collide(self.top_left.x, self.top_left.x + self.SIZE, self.top_left.y + self.SIZE, 0),
+                   pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x, 1),
+                   pinball.is_collide(self.top_left.y, self.top_left.y + self.SIZE, self.top_left.x + self.SIZE, 1)]
+        return any(collide)
 
     def reduce_life(self, box_tracker):
         self.box_lives -= 1

@@ -26,8 +26,12 @@ class Pinball:
         self.center_fixed = self.center + self.direction * self.VEL
         self.direction_fixed = self.direction
 
+        hit_box = None
         for box in box_tracker:
-            box.collision(self, box_tracker)
+            if box.is_collide(self):
+                hit_box = box
+        if hit_box:
+            hit_box.reduce_life(box_tracker)
 
         baffle.collision(self)
 
@@ -47,7 +51,8 @@ class Pinball:
         if axis == 0:
             if not self.direction.y or not self.VEL:
                 return False
-            t = (q - self.center.y - self.RADIUS) / self.direction.y / self.VEL
+            radius_offset = self.RADIUS if self.direction.y > 0 else -self.RADIUS
+            t = (q - self.center.y - radius_offset) / self.direction.y / self.VEL
             if 0 < t <= self.max_t and p1 <= self.center.x + t * self.direction.x * self.VEL <= p2:
                 self.max_t = t
                 self.direction_fixed = Vector2(self.direction.x, -self.direction.y)
@@ -58,7 +63,8 @@ class Pinball:
         if axis == 1:
             if not self.direction.x or not self.VEL:
                 return False
-            t = (q - self.center.x - self.RADIUS) / self.direction.x / self.VEL
+            radius_offset = self.RADIUS if self.direction.x > 0 else -self.RADIUS
+            t = (q - self.center.x - radius_offset) / self.direction.x / self.VEL
             if 0 < t <= self.max_t and p1 <= self.center.y + t * self.direction.y * self.VEL <= p2:
                 self.max_t = t
                 self.direction_fixed = Vector2(-self.direction.x, self.direction.y)
