@@ -1,3 +1,5 @@
+import math
+
 import pygame
 
 Vector2 = pygame.math.Vector2
@@ -48,6 +50,7 @@ class Pinball:
             pinball_tracker.remove(self)
 
     def is_collide(self, p1, p2, q, axis):
+        cos45 = math.sqrt(2) / 2
         if axis == 0:
             if not self.direction.y or not self.VEL:
                 return False
@@ -60,6 +63,16 @@ class Pinball:
                         1 - t) * self.direction_fixed * self.VEL
                 # TODO: remember to calculate 2 collision in 1 frame
                 return True
+            else:
+                t1 = (q - self.center.y - radius_offset * cos45) / self.direction.y / self.VEL
+                if 0 < t1 <= self.max_t and \
+                        (p1 + self.RADIUS * cos45 <= self.center.x + t1 * self.direction.x * self.VEL
+                         <= p2 or p1 <= self.center.x + t1 * self.direction.x * self.VEL <= p2 - self.RADIUS * cos45):
+                    self.max_t = t1
+                    self.direction_fixed = Vector2(self.direction.x, -self.direction.y)
+                    self.center_fixed = self.center + t1 * self.direction * self.VEL + (
+                            1 - t1) * self.direction_fixed * self.VEL
+                    return True
         if axis == 1:
             if not self.direction.x or not self.VEL:
                 return False
@@ -71,3 +84,14 @@ class Pinball:
                 self.center_fixed = self.center + t * self.direction * self.VEL + (
                         1 - t) * self.direction_fixed * self.VEL
                 return True
+            else:
+                t1 = (q - self.center.x - radius_offset * cos45) / self.direction.x / self.VEL
+                if 0 < t1 <= self.max_t and \
+                        (p1 + self.RADIUS * cos45 <= self.center.y + t1 * self.direction.y * self.VEL <= p2 or
+                         p1 <= self.center.y + t1 * self.direction.y * self.VEL <= p2 - self.RADIUS * cos45):
+                    self.max_t = t1
+                    self.direction_fixed = Vector2(-self.direction.x, self.direction.y)
+                    self.center_fixed = self.center + t1 * self.direction * self.VEL + (
+                            1 - t1) * self.direction_fixed * self.VEL
+                    return True
+        return False
